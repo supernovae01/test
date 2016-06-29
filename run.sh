@@ -16,18 +16,13 @@ IPDOWN="/tmp/openvpncl/route-down.sh"
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") log starts" >> $VPNLOG
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") openvpn+jffs mode" >> $VPNLOG
 
-echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") temporarily set date to 20100729 to fix openvpn SSL/TLS issue. see http://goo.gl/bb6a" >> $VPNLOG
-#date 20100729
-# fix issue #49 http://goo.gl/bvPUk
-date -s "2010-07-29 12:00:00"
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") modifying $IPUP" >> $VPNLOG
 
 for i in 1 2 3 4 5 6 7 8 9 10 11 12
 do
 	if [ -e $IPUP ]; then
-		#sed -ie 's#exit 0#/jffs/vpnup.sh\nexit 0#g' $IPUP
-		echo '/jffs/openvpn/vpnup.sh openvpn' >> $IPUP
+		sed -ie 's#exit 0#/jffs/openvpn/vpnup.sh openvpn\nexit 0#g' $IPUP
 		echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") $IPUP modified" >> $VPNLOG
 		break
 	else
@@ -38,8 +33,7 @@ done
 
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") modifying $IPDOWN" >> $VPNLOG
 if [ -e $IPDOWN ]; then
-	#sed -ie 's#exit 0#/jffs/vpndown.sh\nexit 0#g' $IPDOWN
-	echo '/jffs/openvpn/vpndown.sh openvpn' >> $IPDOWN
+	sed -ie 's#exit 0#/jffs/openvpn/vpndown.sh openvpn\nexit 0#g' $IPDOWN
 	echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") $IPDOWN modified" >> $VPNLOG
 else
 	echo "$IPDOWN not exists" >> $VPNLOG
