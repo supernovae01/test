@@ -40,3 +40,5 @@ else
 fi
 	
 echo "$INFO $(date "+%d/%b/%Y:%H:%M:%S") ALL DONE. Let's wait for VPN being connected." >> $VPNLOG
+
+
